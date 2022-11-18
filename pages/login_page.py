@@ -10,7 +10,6 @@ class LoginPage(BasePage):
 
     def should_be_login_url(self):
         # Проверка на корректный url адрес
-        print(self.browser.current_url)
         assert self.browser.current_url == LoginPageLocators.PAGE_URL_EN, "Incorrect LoginPage url"
 
     def should_be_login_form(self):

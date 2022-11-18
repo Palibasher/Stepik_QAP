@@ -23,6 +23,7 @@ def browser(request):
         language = request.config.getoption("language")
         options.add_experimental_option('prefs', {'intl.accept_languages' : language})
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        options.add_argument("--headless")
         browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     elif browser_name == "edge":
         print("\nstart firefox browser for test..")
