@@ -20,6 +20,13 @@ class BasePage():
             return False
         return True
 
+    def is_all_elements_present(self, how, what):
+        """Функция проверяет наличие нескольких объектов, при наличии хотя бы одного возвращает True"""
+        if len(self.browser.find_elements(how, what)) == 0:
+            return False
+        else:
+            return True
+
     def is_not_element_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
@@ -28,12 +35,13 @@ class BasePage():
 
         return False
 
-    def go_to_login_page(self):
-        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        link.click()
+    def is_not_all_elements_present(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_all_elements_located((how, what)))
+        except TimeoutException:
+            return True
 
-    def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+        return False
 
     def is_disappeared(self, how, what, timeout=4):
         try:
@@ -42,3 +50,19 @@ class BasePage():
             return False
 
         return True
+
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
+        link.click()
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
