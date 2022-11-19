@@ -1,7 +1,7 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
-from .locators import  BasePageLocators
-from  selenium.common.exceptions import NoAlertPresentException
+from .locators import BasePageLocators
+from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 import math
 
@@ -11,7 +11,8 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.BUTTON_ADD_TO_BASKET), "Add to basket is not presented"
 
     def should_be_succes_message_after_adding_item_to_basket(self):
-        assert self.is_element_present(*ProductPageLocators.SUCCES_MESSAGE), "Success message is not presented, but should be"
+        assert self.is_element_present(
+            *ProductPageLocators.SUCCES_MESSAGE), "Success message is not presented, but should be"
 
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCES_MESSAGE), \
@@ -35,7 +36,6 @@ class ProductPage(BasePage):
         item_price_main_title = self.browser.find_element(*ProductPageLocators.ITEM_PRICE_MAIN_TITLE)
         assert item_price_main_title.text == item_price_alert_msg.text, "Item price in alert is not matching"
 
-
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -49,6 +49,3 @@ class ProductPage(BasePage):
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
-
-
-
