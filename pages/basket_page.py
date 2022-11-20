@@ -10,12 +10,12 @@ class BasketPage(BasePage):
 
     def should_be_basket_url(self):
         """Проверка на корректный url адрес"""
-        assert self.browser.current_url == BasketPageLocators.PAGE_URL, "Incorrect Basket Page url"
+        assert self.browser.current_url[-7:] == "basket/", "Incorrect Basket Page url"
 
     def should_be_correct_title(self):
         """Проверка на корректный заголовок"""
         assert self.is_element_present(*BasketPageLocators.PAGE_TITLE), "Basket title missing"
-        assert self.browser.find_element(*BasketPageLocators.PAGE_TITLE).text == "Basket", "Basket title incorrect"
+        assert self.browser.find_element(*BasketPageLocators.PAGE_TITLE).text in "BasketКорзинаWarenkorbCarrito", "Basket title incorrect"
 
     def should_be_basket_empty(self):
         """Проверка, что корзина пуста"""
